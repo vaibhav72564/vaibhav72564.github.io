@@ -1,34 +1,1032 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>HTML</title>
-  
-  <!-- HTML -->
-  
-
-  <!-- Custom Styles -->
-  
-  <script src="p5.min.js">
-  </script>
-  <style type="text/css" media="all">
-    body {
-    font-size: 15pt;
-    }
-    h1{
-    text-align: center
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docking Workbench — Next-Gen Automated Molecular Docking Platform</title>
+  <meta name="description" content="Automated, reproducible, and user-friendly molecular docking & virtual screening workflow for computational chemistry and drug discovery.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-
-
 <body>
-  <h1 id="h1">VAIBHAV CREATION</h1>
-  <!-- Project -->
-  <script src="sketch.js"></script>
+
+  <!-- Background Animated Canvas -->
+  <canvas id="molecule-canvas"></canvas>
+
+  <!-- Header / Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            <circle cx="12" cy="12" r="3" fill="var(--accent-cyan)"></circle>
+            <circle cx="19" cy="5" r="2" fill="var(--accent-purple)"></circle>
+            <circle cx="5" cy="19" r="2" fill="var(--accent-green)"></circle>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Docking Workbench</span>
+          <span class="brand-badge">v2.0 Science Edition</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#workflow">How It Works</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#audiences">Solutions</a>
+        <a href="#simulator">Live Simulator</a>
+        <a href="#roi">ROI Calculator</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+          <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="btn btn-secondary" onclick="openModal('investor-modal')">Request Pitch Deck & Demo</button>
+        <button class="btn btn-primary" onclick="openModal('investor-modal')">
+          <span>Launch Workbench</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="pulse-dot"></span>
+          <span>Next-Generation Computational Drug Discovery</span>
+        </div>
+        <h1 class="hero-title">
+          From SMILES to <span class="gradient-text">Publication-Ready Docking Reports</span> in Seconds
+        </h1>
+        <p class="hero-description">
+          Docking Workbench is an automated, reproducible, and end-to-end virtual screening platform. It eliminates tedious command-line setups, automatically handles receptor/ligand preparation, executes parallel docking calculations, and generates peer-review ready computational deliverables.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#workflow" class="btn btn-primary btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>See How Easy It Works</span>
+          </a>
+          <button class="btn btn-outline btn-lg" onclick="openModal('investor-modal')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l5 5-5 5"></path><path d="M4 4v7a4 4 0 0 0 4 4h12"></path></svg>
+            <span>Request Demo & Pitch Deck</span>
+          </button>
+        </div>
+
+        <!-- Key Metrics Strip -->
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-number gradient-cyan">10x</div>
+            <div class="stat-label">Faster Screening Workflow</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-purple">100%</div>
+            <div class="stat-label">Reproducible Audit Logs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-green">0</div>
+            <div class="stat-label">Manual Setup Scripts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-cyan">RMSD ≤ 2Å</div>
+            <div class="stat-label">Native Redocking Validation</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENHANCED WORKFLOW ANIMATION & PRECISE STEP-BY-STEP BREAKDOWN -->
+    <section id="workflow" class="section">
+      <div class="container">
+        <div class="section-header center">
+          <div class="badge">Precision Automation</div>
+          <h2>How Docking Workbench Works: Step-by-Step</h2>
+          <p>Experience how simple, fast, and transparent molecular docking becomes when every complex calculation is automated for you.</p>
+        </div>
+
+        <!-- Interactive Workflow Switcher / Player -->
+        <div class="workflow-comparison-container">
+          <div class="comparison-tabs">
+            <button class="tab-btn active" data-tab="modern">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>The Automated Workbench Workflow (4 Simple Steps)</span>
+            </button>
+            <button class="tab-btn" data-tab="traditional">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+              <span>The Painful Traditional Way (9+ Manual Tools)</span>
+            </button>
+          </div>
+
+          <!-- Modern Animated Workflow Visualizer -->
+          <div id="workflow-modern" class="workflow-view active">
+            
+            <!-- Step Node Progression Bar -->
+            <div class="workflow-steps-progress">
+              <div class="progress-bar-fill" id="workflow-progress-fill"></div>
+              <div class="step-node active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-title">1. Inputs</div>
+              </div>
+              <div class="step-node" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-title">2. Auto-Prep & Grid</div>
+              </div>
+              <div class="step-node" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-title">3. Docking Engine</div>
+              </div>
+              <div class="step-node" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-title">4. Deliverables</div>
+              </div>
+            </div>
+
+            <!-- Step Detail Cards with Visual Previews -->
+            <div class="step-details-display">
+              
+              <!-- STEP 1 DETAILS -->
+              <div class="step-detail-card active" id="step-detail-1">
+                <div class="step-split-layout">
+                  <div class="step-info-col">
+                    <div class="step-card-header">
+                      <span class="step-tag">Step 1 — Input Selection</span>
+                      <h3>Simple Input: Protein Target & Compound Library</h3>
+                    </div>
+                    <p>Simply provide your target protein structure and candidate compounds. No manual format conversion or pre-processing required.</p>
+                    
+                    <div class="input-spec-list">
+                      <div class="spec-item">
+                        <div class="spec-icon">🧬</div>
+                        <div>
+                          <strong>Receptor Target Options:</strong>
+                          <span>Enter RCSB PDB ID (e.g. <code>1HSG</code>, <code>1M17</code>) or upload your custom <code>.pdb</code> / <code>.cif</code> protein file.</span>
+                        </div>
+                      </div>
+                      <div class="spec-item">
+                        <div class="spec-icon">🧪</div>
+                        <div>
+                          <strong>Ligand Candidate Options:</strong>
+                          <span>Paste 2D SMILES strings (e.g. <code>CC(=O)Oc1ccccc1C(=O)O</code>) or upload batch <code>.sdf</code> / <code>.smi</code> compound libraries.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="step-visual-col">
+                    <div class="mock-input-card">
+                      <div class="mock-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span> Workbench Input Panel</div>
+                      <div class="mock-body">
+                        <div class="mock-field"><span class="lbl">Protein PDB:</span> <span class="val highlight">1HSG (HIV-1 Protease)</span></div>
+                        <div class="mock-field"><span class="lbl">Ligand Source:</span> <span class="val">SMILES Compound Library</span></div>
+                        <div class="mock-preview-box">
+                          <code>CC(C)Cc1ccc(cc1)C(C)C(=O)O [Ibuprofen]</code><br>
+                          <code>CC(=O)Oc1ccccc1C(=O)O [Aspirin]</code>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 2 DETAILS -->
+              <div class="step-detail-card" id="step-detail-2">
+                <div class="step-split-layout">
+                  <div class="step-info-col">
+                    <div class="step-card-header">
+                      <span class="step-tag">Step 2 — Smart Preparation</span>
+                      <h3>Automated Cleaning & Grid Box Calculation</h3>
+                    </div>
+                    <p>The platform automatically handles complex chemical calculations behind the scenes with zero manual intervention required.</p>
+                    
+                    <div class="prep-features-grid">
+                      <div class="prep-check-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Automated water molecule & heteroatom removal</span>
+                      </div>
+                      <div class="prep-check-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>pH 7.4 polar hydrogen addition & partial charge assignment</span>
+                      </div>
+                      <div class="prep-check-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>3D conformer embedding & forcefield energy minimization</span>
+                      </div>
+                      <div class="prep-check-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Auto grid-box calculation around co-crystal native ligands or residues</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="step-visual-col">
+                    <div class="mock-prep-card">
+                      <div class="mock-header">Automated Prep Log</div>
+                      <div class="log-stream">
+                        <div class="log-row success">✓ Receptor cleaned (1,452 atoms processed)</div>
+                        <div class="log-row success">✓ Added polar hydrogens at pH 7.4</div>
+                        <div class="log-row success">✓ Partial charges assigned cleanly</div>
+                        <div class="log-row success">✓ Conformer embedded & minimized</div>
+                        <div class="log-row highlight">✓ Grid Box: Center (16.2, 25.4, 4.1) Size (20x20x20 Å)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3 DETAILS -->
+              <div class="step-detail-card" id="step-detail-3">
+                <div class="step-split-layout">
+                  <div class="step-info-col">
+                    <div class="step-card-header">
+                      <span class="step-tag">Step 3 — Parallel Docking Engine</span>
+                      <h3>High-Speed Multi-Core Parallel Virtual Screening</h3>
+                    </div>
+                    <p>Screen hundreds of compounds in parallel with real-time live streaming execution updates directly on your dashboard.</p>
+                    
+                    <div class="engine-metrics-list">
+                      <div class="eng-item">
+                        <span class="eng-val gradient-cyan">Parallel CPU Scaling</span>
+                        <span class="eng-desc">Distributes docking tasks across CPU cores simultaneously.</span>
+                      </div>
+                      <div class="eng-item">
+                        <span class="eng-val gradient-purple">Live Progress Stream</span>
+                        <span class="eng-desc">Real-time status updates stream directly to your web browser.</span>
+                      </div>
+                      <div class="eng-item">
+                        <span class="eng-val gradient-green">RMSD Validation</span>
+                        <span class="eng-desc">Self-docks co-crystallized native ligands ($\text{RMSD} \le 2.0\text{ \AA}$) to verify protocol accuracy.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="step-visual-col">
+                    <div class="mock-engine-card">
+                      <div class="mock-header">Multi-Core Execution Monitor</div>
+                      <div class="core-threads">
+                        <div class="thread-row"><span>CPU Core 1</span><div class="thread-bar"><div class="fill f1"></div></div><span>Screening Compound 1</span></div>
+                        <div class="thread-row"><span>CPU Core 2</span><div class="thread-bar"><div class="fill f2"></div></div><span>Screening Compound 2</span></div>
+                        <div class="thread-row"><span>CPU Core 3</span><div class="thread-bar"><div class="fill f3"></div></div><span>Screening Compound 3</span></div>
+                        <div class="thread-row"><span>CPU Core 4</span><div class="thread-bar"><div class="fill f4"></div></div><span>Evaluating RMSD Pose</span></div>
+                      </div>
+                      <div class="live-vina-score">
+                        <span>Best Binding Affinity:</span> <strong class="gradient-cyan">-9.4 kcal/mol</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4 DETAILS -->
+              <div class="step-detail-card" id="step-detail-4">
+                <div class="step-split-layout">
+                  <div class="step-info-col">
+                    <div class="step-card-header">
+                      <span class="step-tag">Step 4 — What You Get</span>
+                      <h3>Complete Computational Deliverables Package</h3>
+                    </div>
+                    <p>Every docking study generates a complete suite of publication-ready reports, data tables, 3D visual files, and audit logs.</p>
+                    
+                    <div class="deliverable-mini-grid">
+                      <div class="del-item"><span class="icon">📄</span> <strong>Publication PDF Report:</strong> Comprehensive, publication-ready computational PDF report.</div>
+                      <div class="del-item"><span class="icon">📊</span> <strong>Ranked CSV / Excel:</strong> Master ranking table with Vina scores & Ligand Efficiency.</div>
+                      <div class="del-item"><span class="icon">📦</span> <strong>PyMOL 3D Bundle ZIP:</strong> Prepared receptor & docked pose structures for 3D inspection.</div>
+                      <div class="del-item"><span class="icon">📋</span> <strong>100% Audit Log JSON:</strong> Exact seeds, grid box parameters, software versions & timestamps.</div>
+                    </div>
+                  </div>
+
+                  <div class="step-visual-col">
+                    <div class="mock-deliverables-card">
+                      <div class="mock-header">Generated Study Deliverables Package</div>
+                      <div class="file-tree">
+                        <div class="file-item highlight-file"><span class="f-icon">📄</span> docking_report.pdf <span class="badge-mini">PDF</span></div>
+                        <div class="file-item"><span class="f-icon">📊</span> ranked_virtual_screening_results.csv <span class="badge-mini">CSV</span></div>
+                        <div class="file-item"><span class="f-icon">📦</span> pymol_docking_files.zip <span class="badge-mini">ZIP</span></div>
+                        <div class="file-item"><span class="f-icon">📋</span> reproducibility_log.json <span class="badge-mini">JSON</span></div>
+                        <div class="file-item"><span class="f-icon">📈</span> score_distribution.png <span class="badge-mini">PNG</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Workflow Playback Controls -->
+            <div class="workflow-controls-bar">
+              <button id="play-workflow-btn" class="btn btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Auto-Play Workflow Animation</span>
+              </button>
+              <div class="step-indicator-text">Showing Step <span id="current-step-num">1</span> of 4</div>
+            </div>
+          </div>
+
+          <!-- Traditional Workflow View -->
+          <div id="workflow-traditional" class="workflow-view">
+            <div class="traditional-timeline">
+              <div class="trad-step warning">
+                <div class="trad-badge">Step 1</div>
+                <h4>Manual PDB Cleaning</h4>
+                <p>Open PyMOL/Chimera, manually remove water molecules, remove non-standard HETATMs, fix missing residues, save PDB file.</p>
+              </div>
+              <div class="trad-step warning">
+                <div class="trad-badge">Step 2</div>
+                <h4>Manual Preparation Setup</h4>
+                <p>Add Gasteiger charges manually, assign atom types, set rotatable bonds, save PDBQT format files.</p>
+              </div>
+              <div class="trad-step warning">
+                <div class="trad-badge">Step 3</div>
+                <h4>Ligand 3D & Charge Setup</h4>
+                <p>Convert 2D SMILES to 3D, compute charges, set up rotatable bonds, export ligand format manually.</p>
+              </div>
+              <div class="trad-step warning">
+                <div class="trad-badge">Step 4</div>
+                <h4>Manual Grid Box Coordinate Math</h4>
+                <p>Inspect active site residues, calculate center X, Y, Z coordinates and box sizes manually. Write configuration files.</p>
+              </div>
+              <div class="trad-step error">
+                <div class="trad-badge">Step 5</div>
+                <h4>CLI Shell Command Invocation</h4>
+                <p>Run command-line scripts individually for each ligand via terminal bash scripts.</p>
+              </div>
+              <div class="trad-step error">
+                <div class="trad-badge">Step 6</div>
+                <h4>Manual Parsing & Excel Tabulation</h4>
+                <p>Write custom scripts to parse output logs and manually copy scores into Excel spreadsheets.</p>
+              </div>
+            </div>
+            <div class="trad-summary-box">
+              <span class="alert-icon">⚠️</span>
+              <div>
+                <strong>Traditional Result:</strong> Takes hours to days per study, high human error rate, fragmented tools, zero standardized audit logs, and non-reproducible reports.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERABLES SHOWCASE SECTION -->
+    <section id="deliverables" class="section bg-alt">
+      <div class="container">
+        <div class="section-header center">
+          <div class="badge">Complete Output Suite</div>
+          <h2>What Exactly You Get From Every Docking Study</h2>
+          <p>No extra formatting needed. Docking Workbench outputs publication-ready reports, data spreadsheets, and 3D visualization packages automatically.</p>
+        </div>
+
+        <div class="deliverables-tab-container">
+          <div class="del-tab-buttons">
+            <button class="del-tab-btn active" data-del="pdf">
+              <span class="del-icon">📄</span>
+              <span>Publication PDF Report</span>
+            </button>
+            <button class="del-tab-btn" data-del="csv">
+              <span class="del-icon">📊</span>
+              <span>Ranked CSV / Excel Master Table</span>
+            </button>
+            <button class="del-tab-btn" data-del="pymol">
+              <span class="del-icon">📦</span>
+              <span>PyMOL 3D Archive ZIP</span>
+            </button>
+            <button class="del-tab-btn" data-del="audit">
+              <span class="del-icon">📋</span>
+              <span>Structured JSON Audit Log</span>
+            </button>
+          </div>
+
+          <div class="del-preview-window">
+            <!-- Deliverable 1: PDF -->
+            <div id="del-pdf" class="del-pane active">
+              <div class="del-pane-content">
+                <div class="del-pane-text">
+                  <h3>Publication-Ready Computational PDF Report</h3>
+                  <p>A comprehensive, fully formatted PDF document generated automatically for every completed docking study.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Automated one-click PDF generation upon study completion</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Peer-review & manuscript ready computational report format</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Complete computational study documentation</li>
+                  </ul>
+                </div>
+                <div class="del-pane-visual">
+                  <div class="pdf-mockup-sheet">
+                    <div class="pdf-header-bar">DOCKING WORKBENCH — COMPUTATIONAL REPORT</div>
+                    <div class="pdf-cover-box">
+                      <div class="pdf-cover-title">Full Computational Docking Study</div>
+                      <div class="pdf-cover-badge">✓ PDF Report Ready</div>
+                      <div class="pdf-cover-lines">
+                        <div class="line l1"></div>
+                        <div class="line l2"></div>
+                        <div class="line l3"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deliverable 2: CSV -->
+            <div id="del-csv" class="del-pane">
+              <div class="del-pane-content">
+                <div class="del-pane-text">
+                  <h3>Master CSV & Excel Virtual Screening Table</h3>
+                  <p>Comprehensive spreadsheet output sorting candidate compounds by binding energy, Ligand Efficiency (LE), non-covalent hydrogen bonds, hydrophobic contacts, and Lipinski properties.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Automatically ranked by best binding affinity ($\text{kcal/mol}$)</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Full Lipinski Rule of 5 descriptors (MW, LogP, HBD, HBA, TPSA)</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Key interacting amino acid residues listed per pose</li>
+                  </ul>
+                </div>
+                <div class="del-pane-visual">
+                  <div class="table-mockup-box">
+                    <table class="mock-table">
+                      <thead>
+                        <tr><th>Rank</th><th>Compound Name</th><th>Affinity (kcal/mol)</th><th>LE</th><th>H-Bonds</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>1</td><td>Indinavir</td><td class="gradient-cyan">-9.8</td><td>-0.42</td><td>ASP25, GLY27</td></tr>
+                        <tr><td>2</td><td>Inhibitor_B</td><td class="gradient-cyan">-8.9</td><td>-0.39</td><td>ASP25, ILE50</td></tr>
+                        <tr><td>3</td><td>Ibuprofen</td><td>-6.8</td><td>-0.31</td><td>ARG8</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deliverable 3: PyMOL -->
+            <div id="del-pymol" class="del-pane">
+              <div class="del-pane-content">
+                <div class="del-pane-text">
+                  <h3>PyMOL 3D Structure Archive ZIP</h3>
+                  <p>Downloadable zip bundle containing cleaned receptor protein structure files and aligned docked ligand pose files ready for high-resolution 3D rendering in PyMOL or Chimera.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pre-formatted structures ready for instant drag-and-drop viewing</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Cleaned receptor and top docked conformers separated by pose rank</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Perfect for generating publication figure graphics</li>
+                  </ul>
+                </div>
+                <div class="del-pane-visual">
+                  <div class="pymol-mockup-box">
+                    <div class="pymol-header">📦 pymol_docking_files.zip</div>
+                    <div class="zip-contents">
+                      <div>📄 receptor_cleaned.pdb</div>
+                      <div>📄 ligand_rank1_indinavir.pdbqt</div>
+                      <div>📄 ligand_rank2_inhibitorB.pdbqt</div>
+                      <div>📄 binding_site_gridbox.pml</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deliverable 4: JSON Audit -->
+            <div id="del-audit" class="del-pane">
+              <div class="del-pane-content">
+                <div class="del-pane-text">
+                  <h3>100% Structured JSON Audit Log</h3>
+                  <p>Guarantees scientific reproducibility by recording every parameter of your docking study in a machine-readable JSON log file.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Exact random seed, grid box X, Y, Z coordinates and box sizes</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Software versioning, search exhaustiveness, and execution timestamp</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Heavy-atom RMSD native redocking validation results</li>
+                  </ul>
+                </div>
+                <div class="del-pane-visual">
+                  <div class="json-mockup-box">
+                    <pre><code>{
+  "study_id": "STUDY-2026-0922",
+  "protein": "1HSG",
+  "search_space": {
+    "center": [16.2, 25.4, 4.1],
+    "size": [20.0, 20.0, 20.0]
+  },
+  "exhaustiveness": 8,
+  "rmsd_validation": 1.24,
+  "timestamp": "2026-09-22T17:46:00Z"
+}</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE CAPABILITIES GRID -->
+    <section id="capabilities" class="section">
+      <div class="container">
+        <div class="section-header center">
+          <div class="badge">Full Feature Set</div>
+          <h2>Full-Spectrum Computational Chemistry Capabilities</h2>
+          <p>Everything required for modern virtual screening, integrated into a high-performance web architecture.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="feature-card">
+            <div class="card-icon cyan">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+            <h3>Automated Receptor & Ligand Prep</h3>
+            <p>Automatic RCSB PDB download, water removal, pH 7.4 polar hydrogen addition, Gasteiger charges, 3D conformer embedding, and energy minimization.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+            </div>
+            <h3>Smart Grid-Box Management</h3>
+            <p>Calculates bounding boxes automatically around co-crystallized native ligands, active-site amino acid residues, or custom spatial coordinates.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <h3>Parallel Multi-Core Engine</h3>
+            <p>Distributes virtual screening across multi-core CPU threads simultaneously with real-time progress streaming updates to your web dashboard.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon cyan">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            </div>
+            <h3>Interaction Profiling & LE Ranking</h3>
+            <p>Calculates Ligand Efficiency ($\text{LE} = \Delta G / N_{\text{heavy}}$), non-covalent hydrogen bonding, hydrophobic contacts, and binding pose rank order.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <h3>Self-Docking RMSD Validation</h3>
+            <p>Automated native ligand re-docking validation computing heavy-atom RMSD ($\text{RMSD} \le 2.0\text{ \AA}$) to verify grid box accuracy before screening novel libraries.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3>Publication Deliverables & Audits</h3>
+            <p>Exports structured CSV, Excel tables, publication-ready PDF reports, PyMOL zip bundles, and 100% reproducible JSON audit logs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TARGET AUDIENCES / VALUE PROPOSITIONS -->
+    <section id="audiences" class="section bg-alt">
+      <div class="container">
+        <div class="section-header center">
+          <div class="badge">Tailored Solutions</div>
+          <h2>Value Built for Every Stakeholder</h2>
+          <p>Whether you're running experiments, leading a research group, managing an institution, or funding biotech innovation.</p>
+        </div>
+
+        <div class="audience-tabs-wrapper">
+          <div class="audience-nav">
+            <button class="audience-btn active" data-audience="researchers">
+              <span class="icon">🧪</span>
+              <span>For Researchers & Chemists</span>
+            </button>
+            <button class="audience-btn" data-audience="pis">
+              <span class="icon">🎓</span>
+              <span>For Scientists & PIs</span>
+            </button>
+            <button class="audience-btn" data-audience="institutions">
+              <span class="icon">🏛️</span>
+              <span>For Academic Institutions</span>
+            </button>
+            <button class="audience-btn" data-audience="financers">
+              <span class="icon">💼</span>
+              <span>For Biotech Financers & VCs</span>
+            </button>
+          </div>
+
+          <div class="audience-content-area">
+            <!-- Audience 1: Researchers -->
+            <div id="aud-researchers" class="audience-pane active">
+              <div class="pane-grid">
+                <div class="pane-info">
+                  <h3>Eliminate Command-Line Friction & Focus on Molecular Insight</h3>
+                  <p>No need to configure complex environments, write terminal scripts, or manually clean protein files. Docking Workbench gives you an intuitive modern web dashboard backed by robust computational algorithms.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Interactive 3D pose viewer embedded directly in the web browser</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Automatic Lipinski Rule of 5 descriptor calculation (MW, LogP, HBD, HBA, TPSA)</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Real-time streaming progress dashboard</li>
+                  </ul>
+                </div>
+                <div class="pane-card highlight">
+                  <div class="card-badge">Researcher Metric</div>
+                  <div class="big-metric">95% Time Saved</div>
+                  <div class="metric-sub">From raw PDB + SMILES to analyzed binding poses in minutes instead of days.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Audience 2: PIs -->
+            <div id="aud-pis" class="audience-pane">
+              <div class="pane-grid">
+                <div class="pane-info">
+                  <h3>100% Reproducible Research & Publication-Ready Deliverables</h3>
+                  <p>Ensure every computational docking result in your laboratory meets the highest standards of scientific rigor. Every study output includes exact seed parameters, grid boundaries, and versioning in structured audit logs.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Native ligand redocking RMSD validation protocol ($\text{RMSD} \le 2.0\text{ \AA}$)</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> One-click publication-ready PDF reports</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Standardized PyMOL ZIP bundle exports for high-resolution manuscript figure creation</li>
+                  </ul>
+                </div>
+                <div class="pane-card highlight">
+                  <div class="card-badge">Scientific Rigor</div>
+                  <div class="big-metric">100% Reproducible</div>
+                  <div class="metric-sub">Structured JSON logs record random seeds, grid boxes, and calculation parameters.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Audience 3: Institutions -->
+            <div id="aud-institutions" class="audience-pane">
+              <div class="pane-grid">
+                <div class="pane-info">
+                  <h3>Multi-Tenant Cloud Infrastructure & Grant Credit Control</h3>
+                  <p>Deploy Docking Workbench across departments, research labs, or universities. Integrated with an atomic Credit Engine ledger system to manage user quotas and grant allocation.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Atomic grant credit ledger for precise compute resource allocation</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Role-based administrator control panel to manage users, tokens, and studies</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Multi-core CPU parallel screening scales easily across local servers or cloud nodes</li>
+                  </ul>
+                </div>
+                <div class="pane-card highlight">
+                  <div class="card-badge">Institutional Value</div>
+                  <div class="big-metric">Zero Overhead</div>
+                  <div class="metric-sub">Centralized deployment reduces IT setup costs and manages grant budgets seamlessly.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Audience 4: Financers -->
+            <div id="aud-financers" class="audience-pane">
+              <div class="pane-grid">
+                <div class="pane-info">
+                  <h3>High-Growth SaaS Opportunity in AI & Computational Therapeutics</h3>
+                  <p>Biotech and pharmaceutical drug discovery relies on fast, scalable virtual screening. Docking Workbench delivers commercial-grade software architecture with clear micro-transaction credit unit economics.</p>
+                  <ul class="check-list">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Scalable cloud-native architecture combining computational engines with React frontend</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Reduces early-stage hit discovery timeline from months to hours</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Clear SaaS transaction credit model for cloud compute monetization</li>
+                  </ul>
+                </div>
+                <div class="pane-card highlight">
+                  <div class="card-badge">Investment Pitch</div>
+                  <div class="big-metric">10x Throughput</div>
+                  <div class="metric-sub">Commercial computational drug discovery engine built for rapid market scaling.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE INTERACTIVE DOCKING SIMULATOR -->
+    <section id="simulator" class="section">
+      <div class="container">
+        <div class="section-header center">
+          <div class="badge">Interactive Experience</div>
+          <h2>Test Drive the Docking Simulator</h2>
+          <p>Select a target protein and ligand candidate below to run an instant real-time simulated virtual screening run!</p>
+        </div>
+
+        <div class="simulator-wrapper">
+          <div class="sim-panel sim-controls">
+            <h3>1. Configure Docking Study</h3>
+            
+            <div class="form-group">
+              <label>Target Receptor Protein (PDB ID):</label>
+              <select id="sim-target-select" class="form-control">
+                <option value="1HSG">HIV-1 Protease (1HSG) — Co-crystallized Inhibitor</option>
+                <option value="1M17">EGFR Kinase Domain (1M17) — Cancer Target</option>
+                <option value="6LU7">SARS-CoV-2 3CL Main Protease (6LU7) — Antiviral Target</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Compound Candidate (SMILES):</label>
+              <select id="sim-ligand-select" class="form-control">
+                <option value="aspirin">Aspirin [CC(=O)Oc1ccccc1C(=O)O]</option>
+                <option value="ibuprofen">Ibuprofen [CC(C)Cc1ccc(cc1)C(C)C(=O)O]</option>
+                <option value="indinavir">Indinavir Inhibitor Candidate [CC(C)(C)NC(=O)...]</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Search Space Exhaustiveness:</label>
+              <div class="range-wrapper">
+                <input type="range" id="sim-exhaustiveness" min="4" max="32" value="8" step="4">
+                <span id="exhaustiveness-val" class="range-val">8</span>
+              </div>
+            </div>
+
+            <button id="run-sim-btn" class="btn btn-primary btn-block">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Run Simulated Docking Study</span>
+            </button>
+          </div>
+
+          <div class="sim-panel sim-results">
+            <h3>2. Live Execution & Output Stream</h3>
+            
+            <div id="sim-terminal" class="terminal-box">
+              <div class="terminal-line text-muted">[System Ready] Select target and candidate ligand above.</div>
+            </div>
+
+            <div class="sim-output-grid hidden" id="sim-output-card">
+              <div class="sim-metric-item">
+                <span class="lbl">Binding Affinity ($\Delta G$)</span>
+                <span id="out-affinity" class="val highlight-cyan">-8.4 kcal/mol</span>
+              </div>
+              <div class="sim-metric-item">
+                <span class="lbl">Ligand Efficiency (LE)</span>
+                <span id="out-le" class="val">-0.38 kcal/mol/HA</span>
+              </div>
+              <div class="sim-metric-item">
+                <span class="lbl">H-Bond Interactions</span>
+                <span id="out-hbonds" class="val highlight-green">3 Contacts (ASP25, GLY27)</span>
+              </div>
+              <div class="sim-metric-item">
+                <span class="lbl">RMSD Redocking Check</span>
+                <span id="out-rmsd" class="val highlight-purple">1.24 Å (PASSED ≤ 2.0 Å)</span>
+              </div>
+            </div>
+
+            <div class="sim-actions hidden" id="sim-actions-bar">
+              <button class="btn btn-secondary btn-sm" onclick="showToast('Sample PDF Report generated successfully!')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <span>Download PDF Report</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="showToast('PyMOL ZIP file ready for download!')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Download PyMOL Zip Bundle</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROI & COMPUTE COST CALCULATOR -->
+    <section id="roi" class="section bg-alt">
+      <div class="container">
+        <div class="section-header center">
+          <div class="badge">Institutional Economics</div>
+          <h2>Calculate Time & Cost Savings</h2>
+          <p>Estimate the screening efficiency gain and cost reduction for your university laboratory or R&D department.</p>
+        </div>
+
+        <div class="roi-calculator-box">
+          <div class="roi-controls">
+            <div class="form-group">
+              <label>Screening Library Size (Compounds / Month):</label>
+              <div class="range-wrapper">
+                <input type="range" id="roi-compounds" min="50" max="2000" value="500" step="50">
+                <span id="roi-compounds-val" class="range-val">500 compounds</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Number of Active Researchers / PIs:</label>
+              <div class="range-wrapper">
+                <input type="range" id="roi-users" min="1" max="50" value="5" step="1">
+                <span id="roi-users-val" class="range-val">5 researchers</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="roi-results-display">
+            <div class="roi-metric">
+              <span class="roi-lbl">Traditional Manual Screening Time</span>
+              <span id="roi-trad-time" class="roi-val error-color">125 Hours / month</span>
+            </div>
+            <div class="roi-metric">
+              <span class="roi-lbl">Docking Workbench Automated Time</span>
+              <span id="roi-wb-time" class="roi-val success-color">12.5 Hours / month</span>
+            </div>
+            <div class="roi-highlight-card">
+              <div class="roi-save-number" id="roi-hours-saved">112.5 Hours Saved</div>
+              <div class="roi-save-sub">Equating to approximately <strong id="roi-cost-saved">$6,750</strong> in researcher time efficiency per month!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section id="faq" class="section">
+      <div class="container small">
+        <div class="section-header center">
+          <div class="badge">Questions & Answers</div>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What calculation engines power Docking Workbench?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Docking Workbench integrates <strong>AutoDock Vina</strong> for molecular docking calculations, paired with automated 3D conformer embedding engines, Gasteiger partial charge assignments, and energy minimization algorithms.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How does Docking Workbench ensure scientific reproducibility?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Every screening study generates a structured <code>reproducibility_log.json</code> audit trail recording exact random seeds, search space coordinates (X, Y, Z center & dimensions), exhaustiveness settings, hardware specs, and execution timestamps.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can institutions manage user quotas and grant budgets?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. Docking Workbench includes an atomic Credit Engine ledger system. Administrators can assign compute credits to student or researcher accounts, set per-job execution cost rules, and prevent unmonitored server resource exhaustion.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How can biotech financers or VCs evaluate or partner with the platform?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Financers, scientists, and biotech investors can click "Request Demo & Pitch Deck" above or request our institutional investor summary packet to schedule a live product demo, explore commercial licensing, or evaluate financial projections.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION / FOOTER CTA -->
+    <section class="cta-banner">
+      <div class="container text-center">
+        <h2>Ready to Accelerate Your Molecular Docking Workflow?</h2>
+        <p>Start virtual screening with Docking Workbench today or schedule a live product demonstration.</p>
+        <div class="cta-btn-group">
+          <button class="btn btn-primary btn-lg" onclick="openModal('investor-modal')">Launch Workbench App</button>
+          <button class="btn btn-secondary btn-lg" onclick="openModal('investor-modal')">Request Live Demo & Pitch Deck</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="brand-text">
+          <span class="brand-name">Docking Workbench</span>
+          <p class="footer-desc">An Automated, Reproducible, and User-Friendly Molecular Docking Workflow for Virtual Screening and Computational Analysis of Bioactive Molecules.</p>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#workflow">How It Works</a></li>
+          <li><a href="#deliverables">Deliverables</a></li>
+          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#audiences">Target Audiences</a></li>
+          <li><a href="#simulator">Live Simulator</a></li>
+          <li><a href="#roi">ROI Calculator</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Academic Guidance</h4>
+        <p class="citation">
+          <strong>Proposed By:</strong> Vaibhav R. Pawar<br>
+          <strong>Guide:</strong> Dr. Manisha M. Kodape<br>
+          <strong>Engine:</strong> AutoDock Vina Engine
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom text-center">
+      <p>© 2026 Docking Workbench. All Rights Reserved. Built for Computational Chemistry & Drug Discovery.</p>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <!-- 1. Institutional Modal -->
+  <div id="institution-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('institution-modal')">&times;</button>
+      <h3>Institutional & Laboratory Access Request</h3>
+      <p>Request multi-tenant server configuration, grant credit allocation setup, or custom R&D integration.</p>
+      
+      <form id="institution-form" onsubmit="handleInstitutionSubmit(event)">
+        <div class="form-group">
+          <label>Full Name / Title:</label>
+          <input type="text" id="inst-name" class="form-control" required placeholder="Dr. Jane Doe, Principal Investigator">
+        </div>
+        <div class="form-group">
+          <label>Institution / University / Company:</label>
+          <input type="text" id="inst-org" class="form-control" required placeholder="Department of Medicinal Chemistry, University">
+        </div>
+        <div class="form-group">
+          <label>Work Email:</label>
+          <input type="email" id="inst-email" class="form-control" required placeholder="jane.doe@university.edu">
+        </div>
+        <div class="form-group">
+          <label>Estimated Compute Nodes / Active Users:</label>
+          <input type="text" id="inst-nodes" class="form-control" placeholder="e.g., 10 researchers, 16-core CPU server">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Prepare Request Details</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Investor & Live Demo Modal -->
+  <div id="investor-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('investor-modal')">&times;</button>
+      <h3>Request Live Product Demo & Pitch Deck</h3>
+      <p>Schedule a 1-on-1 live platform demonstration, request our commercial pitch deck, or receive SaaS financial forecasts.</p>
+      
+      <form id="investor-form" onsubmit="handleInvestorSubmit(event)">
+        <div class="form-group">
+          <label>Name / Title:</label>
+          <input type="text" id="inv-name" class="form-control" required placeholder="Your Name or Partner Title">
+        </div>
+        <div class="form-group">
+          <label>Institution / Firm / Fund Name:</label>
+          <input type="text" id="inv-firm" class="form-control" required placeholder="University / Biotech Fund / Lab Name">
+        </div>
+        <div class="form-group">
+          <label>Contact Email:</label>
+          <input type="email" id="inv-email" class="form-control" required placeholder="name@organization.com">
+        </div>
+        <div class="form-group">
+          <label>Request Type:</label>
+          <select id="inv-interest" class="form-control">
+            <option>Request Workbench Access & Live Demo Walkthrough</option>
+            <option>Request Investor Pitch Deck & Financial Model</option>
+            <option>Seed / Early Stage Investment Opportunity</option>
+            <option>Commercial Licensing & SaaS Partnership</option>
+            <option>Grant / Innovation Funding</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Prepare Request Details</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Email Redirect Success Confirmation Modal -->
+  <div id="email-success-modal" class="modal-overlay hidden">
+    <div class="modal-card text-center">
+      <button class="modal-close" onclick="closeModal('email-success-modal')">&times;</button>
+      <div style="font-size: 3rem; margin-bottom: 12px;">✉️</div>
+      <h3>Your Email Request is Ready!</h3>
+      <p style="margin-bottom: 20px; font-size: 0.95rem; color: var(--text-secondary);">
+        Choose how you would like to send your pre-formatted request to <strong>vp46033@gmail.com</strong>:
+      </p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a id="btn-open-gmail" href="#" target="_blank" class="btn btn-primary btn-block">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>Open in Gmail Web (New Tab)</span>
+        </a>
+        <a id="btn-open-mailto" href="#" class="btn btn-secondary btn-block">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10z"></path><polyline points="22 7 12 13 2 7"></polyline></svg>
+          <span>Open in Default Mail App (Apple Mail / Outlook)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invisible Trigger Link -->
+  <a id="global-email-trigger" style="display:none;" target="_blank"></a>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
-
